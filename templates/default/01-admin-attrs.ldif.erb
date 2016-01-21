@@ -1,0 +1,15 @@
+dn: olcDatabase={0}config,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: <%= node['openldap']['rootpw'] %>
+
+dn: olcDatabase={2}bdb,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: <%= node['openldap']['rootpw'] %>
+-
+replace: olcRootDN
+olcRootDN: cn=<%= node['openldap']['cn'] %>,<%= node['openldap']['basedn'] %>
+-
+replace: olcSuffix
+olcSuffix: <%= node['openldap']['basedn'] %>
