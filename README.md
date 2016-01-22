@@ -2,7 +2,7 @@
 
 This is a component of the [masala toolkit](https://github.com/PaytmLabs/masala).
 
-This is [wrapper cookbook](http://blog.vialstudios.com/the-environment-cookbook-pattern/#thewrappercookbook) for providing recipes for openldap for server deployment, an LWRP for user management in LDAP, and client auth setup 
+This is a [wrapper cookbook](http://blog.vialstudios.com/the-environment-cookbook-pattern/#thewrappercookbook) for providing recipes for openldap for server deployment, an LWRP for user management in LDAP, and client auth setup 
 
 ## Supported Platforms
 

@@ -23,6 +23,12 @@ platforms:
     attributes:
       system:
         primary_interface: enp0s8
+  - name: centos72
+    driver_config:
+      box: boxcutter/centos72
+    attributes:
+      system:
+        primary_interface: enp0s8
   - name: ubuntu1404
     driver_config:
       box: boxcutter/ubuntu1404
@@ -54,13 +60,13 @@ suites:
         cpus: 1
     attributes:
       openldap:
-        basedn: dc=paytmlabs,dc=com
+        basedn: dc=masalatest,dc=com
         rootpw: '{SSHA}ga4ROYIW/lrpyaNCJ2tJp+3UHg8Tq6eU'
         server: localhost
         slapd_master: 10.10.10.10
         tls_enabled: false
         tls_checkpeer: false
-        syncrepl_dn: cn=syncrole,dc=paytmlabs,dc=com
+        syncrepl_dn: cn=syncrole,dc=masalatest,dc=com
         slapd_replpw: 'my_repl_pw'
       masala_ldap:
         rootpw_clear: devuser
@@ -75,7 +81,7 @@ suites:
         cpus: 1
     attributes:
       openldap:
-        basedn: dc=paytmlabs,dc=com
+        basedn: dc=masalatest,dc=com
         rootpw: '{SSHA}ga4ROYIW/lrpyaNCJ2tJp+3UHg8Tq6eU'
         server: localhost
         tls_enabled: false
@@ -84,7 +90,7 @@ suites:
         slapd_rid: 102
         syncrepl_filter: '(objectClass=*)'
         syncrepl_use_tls: 'no'
-        syncrepl_dn: cn=syncrole,dc=paytmlabs,dc=com
+        syncrepl_dn: cn=syncrole,dc=masalatest,dc=com
         slapd_replpw: 'my_repl_pw'
       masala_ldap:
         rootpw_clear: devuser

@@ -1,7 +1,7 @@
 name             'masala_ldap'
 maintainer       'Joe Hohertz'
 maintainer_email 'jhohertz@gmail.com'
-license          'All rights reserved'
+license          'Apache 2.0'
 description      'Installs/Configures masala_ldap'
 long_description 'Installs/Configures masala_ldap'
 version          '0.1.0'
