@@ -25,6 +25,6 @@ attribute :surname,     :kind_of => String,  :required => true
 attribute :password,    :kind_of => String,  :required => false
 attribute :uid_number,  :kind_of => Integer, :required => true
 attribute :gid_number,  :kind_of => Integer, :required => true
-attribute :ssh_pubkey,  :kind_of => String,  :required => false
+attribute :ssh_pubkey,  :kind_of => [ String, Array ],  :required => false
 attribute :mail,        :kind_of => String,  :required => false
 
