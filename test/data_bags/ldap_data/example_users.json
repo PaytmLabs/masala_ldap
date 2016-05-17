@@ -8,6 +8,17 @@
             "command": "ALL",
             "run_as_user": "ALL"
         }, 
+        "%dummy": {
+            "option": [
+                "!authenticate"
+            ],
+            "host": [
+              "10.10.10.10",
+              "10.10.10.11"
+            ],
+            "command": "ALL",
+            "run_as_user": "ALL"
+        }, 
         "defaults": {
             "option": [
                 "env_keep+=SSH_AUTH_SOCK", 
@@ -31,8 +42,14 @@
             "members": [
                 "vagrantldap"
             ]
+        },
+        "dummy": {
+            "gid_number": 1002, 
+            "members": [
+                "vagrantldap2"
+            ]
         }
-    }, 
+     }, 
     "users": {
         "vagrantldap": {
             "gid_number": 100, 

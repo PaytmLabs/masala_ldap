@@ -21,7 +21,7 @@ default_action :create
 
 attribute :common_name, :kind_of => String,            :name_attribute => true
 attribute :user,        :kind_of => String
-attribute :host,        :kind_of => String
+attribute :host,        :kind_of => [ String, Array ]
 attribute :command,     :kind_of => String
 attribute :option,      :kind_of => [ String, Array ], :required => true
 attribute :run_as_user, :kind_of => String
