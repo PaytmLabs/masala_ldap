@@ -7,7 +7,7 @@ cookbook 'masala_base', :git => 'https://github.com/PaytmLabs/masala_base.git', 
 
 # Dependencies of masala_base:
 cookbook 'ixgbevf', :git => 'https://github.com/PaytmLabs/chef-ixgbevf.git', :ref => 'master'
-cookbook 'system', :git => 'https://github.com/PaytmLabs/chef-system.git', :ref => 'feature-network-restart-control'
+cookbook 'system', :git => 'https://github.com/PaytmLabs/chef-system.git', :ref => 'feature-fix-debian-tz'
 cookbook 'datadog', :git => 'https://github.com/PaytmLabs/chef-datadog.git', :ref => 'kafka-monitor-fix'
 
 metadata
