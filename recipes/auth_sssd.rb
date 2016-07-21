@@ -16,9 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node.default['sssd_ldap']['ldap_sudo'] = 'true'
-node.default['sssd_ldap']['ldap_ssh'] = 'true'
-node.default['sssd_ldap']['ldap_autofs'] = 'true'
+node.default['sssd_ldap']['ldap_sudo'] = true
+node.default['sssd_ldap']['ldap_ssh'] = true
+node.default['sssd_ldap']['ldap_autofs'] = true
 node.default['sssd_ldap']['authconfig_params'] = "--enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update"
 
 node.default['sssd_ldap']['sssd_conf']['ldap_schema'] = 'rfc2307'
@@ -69,6 +69,26 @@ if node['platform_family'] == 'rhel' && node['platform_version'].to_f >= 7.0
 end
 
 include_recipe 'sssd_ldap::default'
+
+# register process monitor
+ruby_block "datadog-process-monitor-sssd" do
+  block do
+    # will have 4 processes (sssd, sssd_be, sssd_nss, sssd_pam) plus up to 3 optional
+    num_proc = 4
+    num_proc += 1 if node['sssd_ldap']['ldap_sudo']
+    num_proc += 1 if node['sssd_ldap']['ldap_ssh']
+    num_proc += 1 if node['sssd_ldap']['ldap_autofs']
+    node.set['masala_base']['dd_proc_mon']['sssd'] = {
+      search_string: ['sssd', 'sssd_be', 'sssd_nss', 'sssd_pam', 'sssd_sudo', 'sssd_ssh', 'sssd_autofs'],
+      exact_match: true,
+      thresholds: {
+       critical: [num_proc, num_proc]
+      }
+    }
+  end
+  only_if { node['masala_base']['dd_enable'] and not node['masala_base']['dd_api_key'].nil? }
+  notifies :run, 'ruby_block[datadog-process-monitors-render]'
+end
 
 node.default['openssh']['server']['authorized_keys_command'] = '/usr/bin/sss_ssh_authorizedkeys'
 if node['platform_family'] == 'debian' || (node['platform_family'] == 'rhel' && node['platform_version'].to_f >= 7.0)

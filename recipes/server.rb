@@ -69,6 +69,22 @@ else
   include_recipe 'openldap::server'
 end
 
+# register process monitor
+ruby_block "datadog-process-monitor-slapd" do
+  block do
+    node.set['masala_base']['dd_proc_mon']['slapd'] = {
+      search_string: ['slapd'],
+      exact_match: true,
+      thresholds: {
+       critical: [1, 1]
+      }
+    }
+  end
+  only_if { node['masala_base']['dd_enable'] and not node['masala_base']['dd_api_key'].nil? }
+  notifies :run, 'ruby_block[datadog-process-monitors-render]'
+end
+
+
 if node['masala_ldap']['slapd_type'] != 'slave'
 
   # Do structural modifications
