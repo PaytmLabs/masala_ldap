@@ -71,7 +71,7 @@ end
 include_recipe 'sssd_ldap::default'
 
 # register process monitor if enabled
-if node['masala_base']['dd_enable'] and not node['masala_base']['dd_api_key'].nil?
+if node['masala_base']['dd_enable'] && !node['masala_base']['dd_api_key'].nil?
   ruby_block "datadog-process-monitor-sssd" do
     block do
       # will have 4 processes (sssd, sssd_be, sssd_nss, sssd_pam) plus up to 3 optional
@@ -87,7 +87,6 @@ if node['masala_base']['dd_enable'] and not node['masala_base']['dd_api_key'].ni
         }
       }
     end
-    only_if { node['masala_base']['dd_enable'] and not node['masala_base']['dd_api_key'].nil? }
     notifies :run, 'ruby_block[datadog-process-monitors-render]'
   end
 end
