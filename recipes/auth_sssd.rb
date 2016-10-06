@@ -96,3 +96,10 @@ if node['platform_family'] == 'debian' || (node['platform_family'] == 'rhel' && 
   node.default['openssh']['server']['authorized_keys_command_user'] = 'nobody'
 end
 
+ruby_block "restart-immediate-sssd" do
+  block do
+    # No operation, signals sssd restart
+  end
+  notifies :restart, 'service[sssd]', :immediately
+end
+
