@@ -19,6 +19,7 @@
 node.default['sssd_ldap']['ldap_sudo'] = true
 node.default['sssd_ldap']['ldap_ssh'] = true
 node.default['sssd_ldap']['ldap_autofs'] = true
+node.default['sssd_ldap']['delay_restart'] = false
 node.default['sssd_ldap']['authconfig_params'] = "--enablesssd --enablesssdauth --enablelocauthorize --enablemkhomedir --update"
 
 node.default['sssd_ldap']['sssd_conf']['ldap_schema'] = 'rfc2307'
@@ -94,12 +95,5 @@ end
 node.default['openssh']['server']['authorized_keys_command'] = '/usr/bin/sss_ssh_authorizedkeys'
 if node['platform_family'] == 'debian' || (node['platform_family'] == 'rhel' && node['platform_version'].to_f >= 7.0)
   node.default['openssh']['server']['authorized_keys_command_user'] = 'nobody'
-end
-
-ruby_block "restart-immediate-sssd" do
-  block do
-    # No operation, signals sssd restart
-  end
-  notifies :restart, 'service[sssd]', :immediately
 end
 
