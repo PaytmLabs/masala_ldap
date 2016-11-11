@@ -18,6 +18,17 @@
 
 if node['masala_ldap'].has_key?('data_bag_item') && !node['masala_ldap']['data_bag_item'].nil?
   ldap_data = data_bag_item('ldap_data', node['masala_ldap']['data_bag_item'])
+
+  all_uids = ldap_data['users'].map { |x| x[1]['uid_number'] }
+  all_gids = ldap_data['groups'].map { |x| x[1]['gid_number'] }
+
+  if all_uids.length != all_uids.uniq.length
+    abort "duplicate uids found: " + all_uids.select{|e| all_uids.count(e) > 1 }.to_s + "\n"
+  end
+  if all_gids.length != all_gids.uniq.length
+    abort "duplicate gids found: " + all_gids.select{|e| all_gids.count(e) > 1 }.to_s + "\n"
+  end
+  
   ldap_data['groups'].each do |name, attr|
     masala_ldap_group name do
       gid_number attr['gid_number']
