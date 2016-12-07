@@ -38,8 +38,9 @@ action :create do
                     gidNumber: new_resource.gid_number.to_s,
                     homeDirectory: '/home/' + new_resource.common_name
     }
+    seed_attrs = {}
     if new_resource.password
-        attrs['userPassword'] = new_resource.password =~ /^{SSHA}/ ? new_resource.password : '{SSHA}' + Base64.encode64(Digest::SHA1.digest( new_resource.password + salt ) + salt ).chomp
+        seed_attrs['userPassword'] = new_resource.password =~ /^{SSHA}/ ? new_resource.password : '{SSHA}' + Base64.encode64(Digest::SHA1.digest( new_resource.password + salt ) + salt ).chomp
     end
     if new_resource.ssh_pubkey && !new_resource.ssh_pubkey.nil?
         attrs[:sshPublicKey] = new_resource.ssh_pubkey
@@ -53,6 +54,7 @@ action :create do
       credentials ldap_creds
       host node['openldap']['slapd_master']
       attributes attrs
+      seed_attributes seed_attrs if not seed_attrs.empty?
     end
 #  end
 end

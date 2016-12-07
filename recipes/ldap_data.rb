@@ -30,21 +30,26 @@ if node['masala_ldap'].has_key?('data_bag_item') && !node['masala_ldap']['data_b
   end
   
   ldap_data['groups'].each do |name, attr|
+    action = attr.has_key?('action') ? attr['action']=='delete' ? :delete : :create : :create
     masala_ldap_group name do
       gid_number attr['gid_number']
       members    attr['members']
+      action     action
     end
   end
   ldap_data['sudoers'].each do |name, attr|
+    action = attr.has_key?('action') ? attr['action']=='delete' ? :delete : :create : :create
     masala_ldap_sudo name do
       option       attr['option']
       user         attr['user']        if attr.has_key?('user')
       host         attr['host']        if attr.has_key?('host')
       command      attr['command']     if attr.has_key?('command')
       run_as_user  attr['run_as_user'] if attr.has_key?('run_as_user')
+      action     action
     end
   end
   ldap_data['users'].each do |name, attr|
+    action = attr.has_key?('action') ? attr['action']=='delete' ? :delete : :create : :create
     masala_ldap_user name do
       firstname   attr['firstname']
       surname     attr['surname']
@@ -52,6 +57,8 @@ if node['masala_ldap'].has_key?('data_bag_item') && !node['masala_ldap']['data_b
       gid_number  attr['gid_number']
       mail        attr['mail']         if attr.has_key?('mail')
       ssh_pubkey  attr['ssh_pubkey']   if attr.has_key?('ssh_pubkey')
+      password    attr['password']     if attr.has_key?('password')
+      action     action
     end
   end
 end
