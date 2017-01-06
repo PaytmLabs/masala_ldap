@@ -14,3 +14,4 @@ else
     default['masala_ldap']['service']['sshd'] = 'sshd'
 end
 
+default['openldap']['syncrepl_interval'] = '00:00:10:00'
