@@ -15,3 +15,5 @@ else
 end
 
 default['openldap']['syncrepl_interval'] = '00:00:10:00'
+default['openldap']['server_config_hash']['sizelimit'] = 5000
+
